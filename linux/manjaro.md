@@ -30,3 +30,26 @@ sudo mysql_secure_installation //设置root密码、初始化等操作，必须s
 sudo systemctl restart mariadb //重启
 ```
 之后就可以使用`mysql -u root -p`连接数据库了。
+
+## redis
+下载地址：https://redis.io/
+```
+# 解压
+tar xzvf redis...
+# 进入解压后的路径
+cd redis...
+# 编译
+sudo make
+# 进入编译路径
+cd src/
+# 测试安装
+sudo make test
+# 安装
+mkdir /usr/local/redis
+sudo make install PREFIX /usr/local/redis
+# 启动
+cd /usr/local/redis/bin
+cp redis.../redis.conf ./
+./redis-server redis.conf
+```
+> 这种启动方式似乎没法关闭，最好开启redis.conf中的daemon，让redis后台运行

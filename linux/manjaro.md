@@ -31,7 +31,7 @@ sudo systemctl restart mariadb //重启
 ```
 之后就可以使用`mysql -u root -p`连接数据库了。
 
-## redis
+## Redis
 下载地址：https://redis.io/
 ```
 # 解压
@@ -52,4 +52,31 @@ cd /usr/local/redis/bin
 cp redis.../redis.conf ./
 ./redis-server redis.conf
 ```
-> 这种启动方式似乎没法关闭，最好开启redis.conf中的daemon，让redis后台运行
+> 这种启动方式似乎没法关闭，最好开启redis.conf中的daemon，让redis后台运行，还有开机自启动待处理
+
+## MySQL
+自2013年起，MariaDB就被Arch Linux当作官方默认的MySQL实现。Oracle MySQL已被移动到AUR，本地测试的话没有特别要用Oracle MySQL的理由，就直接使用mariadb，不折腾了。  
+```
+# 安装
+sudo pacman -S mariadb
+# 初始化
+sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+# 启动并设置开机自启动
+sudo systemctl start mariadb
+sudo systemctl enable mariadb
+# 设置密码，初始密码是空
+sudo mysql_secure_installation
+```
+
+然后`mysql -u root -p`测试连接，也可以使用可视化工具workbench，安装命令`sudo pacman -S mysql-workbench`
+
+### MySQL新建用户和授权
+```
+CREATE USER '{用户名}'@'{host}' IDENTIFIED BY '{密码}';
+GRANT {privileges} ON {dadabasename}.{tablename} TO '{用户名}'@'{host}';
+```
+说明：
+- host：本地用localhost，从任意远程主机登陆用通配符%
+- privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所的权限则使用ALL
+- dadabasename.tablename：数据库名和表名，所有使用通配符* 
+> 用以上命令授权的用户不能给其它用户授权，如果想让该用户可以授权，用`GRANT privileges ON databasename.tablename TO 'username'@'host' WITH GRANT OPTION;`

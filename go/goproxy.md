@@ -7,3 +7,11 @@
 
 ## 190917补
 个人pc按上面的方式还是不行，后来在GOPATH/src下创建golang.org/x文件夹，之后在其中git clone缺少的包，下载地址见`https://github.com/golang`
+
+## 200114补
+虚拟机go1.12版本下：  
+```
+export GO111MODULE=on
+export GOPROXY=https://goproxy.io
+```
+后可以直接`go mod tidy && go mod vendor`，去掉go.mod中的replace部分也没有报错

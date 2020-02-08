@@ -80,3 +80,19 @@ GRANT {privileges} ON {dadabasename}.{tablename} TO '{用户名}'@'{host}';
 - privileges：用户的操作权限，如SELECT，INSERT，UPDATE等，如果要授予所的权限则使用ALL
 - dadabasename.tablename：数据库名和表名，所有使用通配符* 
 > 用以上命令授权的用户不能给其它用户授权，如果想让该用户可以授权，用`GRANT privileges ON databasename.tablename TO 'username'@'host' WITH GRANT OPTION;`
+
+## 无法提交处理 (无效或已损坏的软件包)
+```
+# 更新密钥，要先安装archlinux-keyring
+sudo pacman-key --refresh-keys
+
+# 重新加载签名密钥
+sudo pacman-key --init
+sudo pacman-key --populate
+
+# 清除pacman的缓冲文件
+sudo pacman -Scc
+
+# 更新
+sudo pacman -Syu
+```

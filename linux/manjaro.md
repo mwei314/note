@@ -96,3 +96,18 @@ sudo pacman -Scc
 # 更新
 sudo pacman -Syu
 ```
+
+
+## 安装MongoDB
+```
+git clone https://aur.archlinux.org/mongodb-bin.git
+cd mongodb-bin
+makepkg -si
+# 启动
+systemctl start mongodb
+# 开机启动
+systemctl enable mongodb
+# 测试连接
+mongo
+```
+>  https://stackoverflow.com/questions/59455725/install-mongodb-on-manjaro
